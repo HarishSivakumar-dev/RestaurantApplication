@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Table Reservation</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Space+Grotesk:wght@300..700&display=swap"
+        rel="stylesheet">
+    <link href="style.css" rel="stylesheet">
+    <script src="script.js"></script>
+    <link href="style.css" rel="stylesheet">
+</head>
+<body>
+    <div class="outer-cover">
+        <div class="table-sec">
+        <div class="table1">
+            <div id="tab1">
+                <p>Table 1</p>
+            </div>
+            <div id="ch"></div>
+            <div id="chr"></div>
+        </div>
+        <div class="table2">
+            <div id="tab2">
+                <p>Table 2</p>
+            </div>
+            <div id="chr1"></div>
+            <div id="chr2"></div>
+            <div id="smallchr"></div>
+            <div id="smallchr1"></div>
+        </div>
+        <div class="table3">
+            <div id="tab3">
+                <p>Table 3</p>
+            </div>
+            <div id="smlch1"></div>
+            <div id="smlch2"></div>
+            <div id="chair1"></div>
+            <div id="chair2"></div>
+            <div id="chair3"></div>
+            <div id="chair4"></div>
+            <div id="smallchair1"></div>
+            <div id="smallchair2"></div>
+        </div>
+        <div class="table4">
+            <div id="tab4">
+                <p>Table 4</p>
+            </div>
+            <div id="chr1"></div>
+            <div id="chr2"></div>
+            <div id="smallchr"></div>
+            <div id="smallchr1"></div>
+        </div>
+        <div class="table5">
+            <div id="tab5">
+                <p>Table 5</p>
+            </div>
+            <div id="ch"></div>
+            <div id="chr"></div>
+        </div>
+        <div class="outer-table1">
+            <div id="tab5">
+                <p>Table 6</p>
+            </div>
+            <div id="ch"></div>
+            <div id="chr"></div>
+        </div>
+        <div class="outer-table2">
+            <div id="tab5">
+                <p>Table 7</p>
+            </div>
+            <div id="ch"></div>
+            <div id="chr"></div>
+        </div>
+        <div class="outer-table3">
+            <div id="tab5">
+                <p>Table 8</p>
+            </div>
+            <div id="ch"></div>
+            <div id="chr"></div>
+        </div>
+        <div class="line"></div>
+
+        <div class="form-ele">
+            <form>
+                <table id="table1">
+                    <tr id="got-to">
+                        <td><label>Your Name:</label></td>
+                        <td><input placeholder="Name" ID="na1"></td>
+                    </tr>
+                    <tr id="got-to">
+                        <td><label>Your Email:</label></td>
+                        <td><input placeholder="Email" ID="na2"></td>
+                    </tr>
+                    <tr id="got-to">
+                        <td><label>Your Mob-No:</label></td>
+                        <td><input placeholder="Mobile Number" id="na3" type="number"></td>
+                    </tr>
+                    <tr id="got-to">
+                        <td><label>Table Number: </label></td>
+                        <td><input placeholder="Table Number" id="na4" type="number"></input></td>
+                    </tr>
+                    <tr id="got-to">
+                        <td><label>Number Of Persons: </label></td>
+                        <td><input placeholder="Number Of Members" id="na5" type="number"></input></td>
+                    </tr>
+            </form>
+            <button id="submit" onclick="reserve(event)">Book</button>
+            <button id="submit-1" onclick="back()">Back</button>
+            <h2 id="indi">Table Reservation</h2>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Summary</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Space+Grotesk:wght@300..700&display=swap"
+        rel="stylesheet">
+    <script src="script.js" defer></script>
+    <link href="style.css" rel="stylesheet">
+    <style>
+        .div-outer
+        {
+            display: block;
+        }
+    </style>
+    <script>
+    window.onload = function() 
+    {
+    // Apply changes to the data-outer div after the page is loaded
+    const displayValue = localStorage.getItem("dataOuterDisplay");
+    if (displayValue)
+    {
+        document.querySelector(".data-outer").style.display = "block";
+        var prze=localStorage.getItem("tot");
+        var tf=document.getElementById("na12");
+        console.log(prze);
+        tf.value=prze;
+        const items = JSON.parse(localStorage.getItem("items")) || [];
+        console.log(items)
+        var ib = document.getElementById("na11");
+        items.forEach(itemObj => {
+            if (itemObj.quan !== null) {
+                ib.append(itemObj.item);  // Append the item name
+                console.log("entered")
+                ib.append(' - ');  // Optional separator between item and quantity
+                ib.append(itemObj.quan);  // Append the quantity
+                ib.append('\n');  // Optional newline for each item (if you want them listed on separate lines)
+            }
+            
+        });
+        if (performance.navigation.type === 1) 
+        {
+        // Redirect to another page
+        window.location.href = "index.html"; // Replace with your desired URL
+        }
+        
+        localStorage.clear();
+        
+        console.log(items)
+        
+    }
+}
+function paymentgateway(event)
+{
+    event.preventDefault();
+    var ok=document.getElementById("na13").value;
+    var ok1=document.getElementById("na14").value;
+    var ok2=document.getElementById("na15").value;
+    console.log(ok);
+    console.log(ok1);
+    console.log(ok2);
+
+    if(ok=="" || ok1=="" || ok2=="")
+    {
+        alert("Fill The Particulars To Complete The Payment ! ")
+    }
+    else
+    {
+        var ib = document.getElementById("na11").value;
+        var prs=document.getElementById("na12").value;
+        var ok=document.getElementById("na13").value;
+        var ok1=document.getElementById("na14").value;
+        var ok2=document.getElementById("na15").value;
+        const data=
+        {
+            bill:ib,
+            price:prs,
+            name:ok,
+            email:ok1,
+            mobileno:ok2
+        };
+        fetch('http://localhost:8080/reservation/foodbook', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+          })
+          .then(response => response.json())
+          .then(responseData => {
+
+            var res=responseData.message;
+            console.log('Data saved successfully:', res);
+            alert("Order Placed !");
+
+          })
+          .catch(error => {
+            console.error('Error saving data:', error);
+          });
+    }
+}
+    </script>
+</head>
+<body>
+
+    <div class="gal1">
+        <div class="innergal1">
+            <div id="line1"></div>
+            <h2 class="head1">Order Summary</h2>
+            <div id="line2"></div>
+        </div>
+    </div>
+    <div class="data-outer">
+        <h1 class="bill"></h1>
+        <div class="data">
+            <form>
+                <table id="table1">
+                    <tr id="gotcha">
+                        <td><label>Quantity: </label></td>
+                        <td><textarea id="na11" readonly></textarea></td>
+                    </tr>
+                    <tr id="gotcha">
+                        <td><label>Total Amount: </label></td>
+                        <td><input id="na12" type="number" readonly></td>
+                    </tr>
+                    <tr id="gotcha">
+                        <td><label>Name:</label></td>
+                        <td><input placeholder="Name" id="na13" type="text"></td>
+                    </tr>
+                    <tr id="gotchaa">
+                        <td><label>Email: </label></td>
+                        <td><input placeholder="Email" id="na14" type="text"></td>
+                    </tr>
+                    <tr id="gotchaa">
+                        <td><label>Mob No: </label></td>
+                        <td><input placeholder="Mobile Number" id="na15" type="text"></td>
+                    </tr>
+                    <tr id="gotchaaa">
+                        <td><button id="gotchh" onclick="paymentgateway(event)">Proceed To Pay</button></td>
+                        <td><button id="gotch">Cancel</button></td>
+                    </tr>
+                </table>
+                
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>
