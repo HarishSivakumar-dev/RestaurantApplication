@@ -17,222 +17,75 @@ import org.springframework.web.bind.annotation.RestController;
 @SpringBootApplication
 @RestController
 @RequestMapping("/reservation")
-@CrossOrigin(origins = "http://127.0.0.1:5500")
+@CrossOrigin(origins = {"http://127.0.0.1:5501","http://127.0.0.1:5000"})
 public class RestaurantUiApplication
 {
 	
-	@PostMapping("/book")
-	@CrossOrigin(origins = "http://127.0.0.1:5500")
-	public ResponseEntity<String> checkData(@RequestBody BookingDetails bk) throws SQLException
+	static HashMap <Integer,Integer> op=new HashMap();
+	static 
 	{
-		Connection conn=DriverManager.getConnection("jdbc:mysql://localhost:3306/userinfo","root","HarishShiva@07");
-		
-		if(bk.getTableno()==1 && bk.getMembers()<3)
+		op.put(1,2);
+		op.put(2,4);
+		op.put(3,6);
+		op.put(4,4);
+		op.put(5,2);
+		op.put(6,2);
+		op.put(7,2);
+		op.put(8,2);
+	}
+	
+	@PostMapping("/book")
+	@CrossOrigin(origins = {"http://127.0.0.1:5501","http://127.0.0.1:5000"})
+	public ResponseEntity<String> checkData(@RequestBody BookingDetails bk) throws SQLException
+	{		
+		int tbleno=bk.getTableno();
+		System.out.println(tbleno);
+		System.out.println(op.get(tbleno));
+		if(!op.containsKey(tbleno) || op.get(tbleno)<bk.getMembers())
 		{
-			String st1="SELECT*FROM reservation WHERE buffetnumber=?";
-			PreparedStatement sm1=conn.prepareStatement(st1);
-			sm1.setInt(1,bk.getTableno());
-			ResultSet rs=sm1.executeQuery();
-			if(rs.next())
-			{
-				return ResponseEntity.ok().body("{\"message\": \"" +"Table exist !"+ "\"}");
-			}
-			else 
-			{
-				String st= "INSERT INTO reservation(client_name,email,mobno,buffetnumber,personscount)" + "VALUES(?,?,?,?,?)";
-				PreparedStatement sm=conn.prepareStatement(st);
-				sm.setString(1,bk.getName());
-				sm.setString(2,bk.getEmail());
-				sm.setString(3,bk.getMobno());
-				sm.setInt(4, bk.getTableno());
-				sm.setInt(5, bk.getMembers());
-				
-				sm.execute();
-				return ResponseEntity.ok().body("{\"message\": \"" +"Successful"+ "\"}");
-			}
-
-		}
-		else if(bk.getTableno()==2 && bk.getMembers()<5)
-		{
-			String st1="SELECT*FROM reservation WHERE buffetnumber=?";
-			PreparedStatement sm1=conn.prepareStatement(st1);
-			sm1.setInt(1,bk.getTableno());
-			ResultSet rs=sm1.executeQuery();
-			if(rs.next())
-			{
-				return ResponseEntity.ok().body("{\"message\": \"" +"table exist !"+ "\"}");
-			}
-			else 
-			{
-				String st= "INSERT INTO reservation(client_name,email,mobno,buffetnumber,personscount)"+"VALUES(?,?,?,?,?)";
-				PreparedStatement sm=conn.prepareStatement(st);
-				sm.setString(1,bk.getName());
-				sm.setString(2,bk.getEmail());
-				sm.setString(3,bk.getMobno());
-				sm.setInt(4, bk.getTableno());
-				sm.setInt(5, bk.getMembers());
-				
-				sm.execute();
-				return ResponseEntity.ok().body("{\"message\": \"" +"Successful"+ "\"}");
-			}
-		}
-		else if(bk.getTableno()==3 && bk.getMembers()<7)
-		{
-			String st1="SELECT * FROM reservation WHERE buffetnumber=?";
-			PreparedStatement sm1=conn.prepareStatement(st1);
-			sm1.setInt(1,bk.getTableno());
-			ResultSet rs=sm1.executeQuery();
-			if(rs.next())
-			{
-				return ResponseEntity.ok().body("{\"message\": \"" +"table exist !"+ "\"}");
-			}
-			else 
-			{
-				String st= "INSERT INTO reservation(client_name,email,mobno,buffetnumber,personscount)" + "VALUES(?,?,?,?,?)";
-				PreparedStatement sm=conn.prepareStatement(st);
-				sm.setString(1,bk.getName());
-				sm.setString(2,bk.getEmail());
-				sm.setString(3,bk.getMobno());
-				sm.setInt(4, bk.getTableno());
-				sm.setInt(5, bk.getMembers());
-				
-				sm.execute();
-				return ResponseEntity.ok().body("{\"message\": \"" +"Successful"+ "\"}");
-			}
-		}
-		else if(bk.getTableno()==4 && bk.getMembers()<5)
-		{
-			String st1="SELECT*FROM reservation WHERE buffetnumber=?";
-			PreparedStatement sm1=conn.prepareStatement(st1);
-			sm1.setInt(1,bk.getTableno());
-			ResultSet rs=sm1.executeQuery();
-			if(rs.next())
-			{
-				return ResponseEntity.ok().body("{\"message\": \"" +"table exist !"+ "\"}");
-			}
-			else 
-			{
-				String st= "INSERT INTO reservation(client_name,email,mobno,buffetnumber,personscount)" + "VALUES(?,?,?,?,?)";
-				PreparedStatement sm=conn.prepareStatement(st);
-				sm.setString(1,bk.getName());
-				sm.setString(2,bk.getEmail());
-				sm.setString(3,bk.getMobno());
-				sm.setInt(4, bk.getTableno());
-				sm.setInt(5, bk.getMembers());
-				
-				sm.execute();
-				return ResponseEntity.ok().body("{\"message\": \"" +"Successful"+ "\"}");
-			}
-		}
-		else if(bk.getTableno()==5 && bk.getMembers()<3)
-		{
-			String st1="SELECT*FROM reservation WHERE buffetnumber=?";
-			PreparedStatement sm1=conn.prepareStatement(st1);
-			sm1.setInt(1,bk.getTableno());
-			ResultSet rs=sm1.executeQuery();
-			if(rs.next())
-			{
-				return ResponseEntity.ok().body("{\"message\": \"" +"table exist !"+ "\"}");
-			}
-			else 
-			{
-				String st= "INSERT INTO reservation(client_name,email,mobno,buffetnumber,personscount)" + "VALUES(?,?,?,?,?)";
-				PreparedStatement sm=conn.prepareStatement(st);
-				sm.setString(1,bk.getName());
-				sm.setString(2,bk.getEmail());
-				sm.setString(3,bk.getMobno());
-				sm.setInt(4, bk.getTableno());
-				sm.setInt(5, bk.getMembers());
-				
-				sm.execute();
-				return ResponseEntity.ok().body("{\"message\": \"" +"Successful"+ "\"}");
-			}
-		}
-		else if(bk.getTableno()==6 && bk.getMembers()<3)
-		{
-			String st1="SELECT*FROM reservation WHERE buffetnumber=?";
-			PreparedStatement sm1=conn.prepareStatement(st1);
-			sm1.setInt(1,bk.getTableno());
-			ResultSet rs=sm1.executeQuery();
-			if(rs.next())
-			{
-				return ResponseEntity.ok().body("{\"message\": \"" +"table exist !"+ "\"}");
-			}
-			else 
-			{
-				System.out.println(bk.getTableno());
-				try
-				{
-				String st= "INSERT INTO reservation(client_name,email,mobno,buffetnumber,personscount)" + "VALUES(?,?,?,?,?)";
-				PreparedStatement sm=conn.prepareStatement(st);
-				sm.setString(1,bk.getName());
-				sm.setString(2,bk.getEmail());
-				sm.setString(3,bk.getMobno());
-				sm.setInt(4, bk.getTableno());
-				sm.setInt(5, bk.getMembers());
-				
-				sm.execute();
-				}
-				catch(Exception e)
-				{
-					e.printStackTrace();
-				}
-				return ResponseEntity.ok().body("{\"message\": \"" +"Successful"+ "\"}");
-			}
-		}
-		else if(bk.getTableno()==7 && bk.getMembers()<3)
-		{
-			String st1="SELECT*FROM reservation WHERE buffetnumber=?";
-			PreparedStatement sm1=conn.prepareStatement(st1);
-			sm1.setInt(1,bk.getTableno());
-			ResultSet rs=sm1.executeQuery();
-			if(rs.next())
-			{
-				return ResponseEntity.ok().body("{\"message\": \"" +"table exist !"+ "\"}");
-			}
-			else 
-			{
-				String st= "INSERT INTO reservation(client_name,email,mobno,buffetnumber,personscount)" + "VALUES(?,?,?,?,?)";
-				PreparedStatement sm=conn.prepareStatement(st);
-				sm.setString(1,bk.getName());
-				sm.setString(2,bk.getEmail());
-				sm.setString(3,bk.getMobno());
-				sm.setInt(4, bk.getTableno());
-				sm.setInt(5, bk.getMembers());
-				
-				sm.execute();
-				return ResponseEntity.ok().body("{\"message\": \"" +"Successful"+ "\"}");
-			}
-		}
-		else if(bk.getTableno()==8 && bk.getMembers()<3)
-		{
-			String st1="SELECT*FROM reservation WHERE buffetnumber=?";
-			PreparedStatement sm1=conn.prepareStatement(st1);
-			sm1.setInt(1,bk.getTableno());
-			ResultSet rs=sm1.executeQuery();
-			if(rs.next())
-			{
-				return ResponseEntity.ok().body("{\"message\": \"" +"table exist !"+ "\"}");
-			}
-			else 
-			{
-				String st= "INSERT INTO reservation(client_name,email,mobno,buffetnumber,personscount)" + "VALUES(?,?,?,?,?)";
-				PreparedStatement sm=conn.prepareStatement(st);
-				sm.setString(1,bk.getName());
-				sm.setString(2,bk.getEmail());
-				sm.setString(3,bk.getMobno());
-				sm.setInt(4, bk.getTableno());
-				sm.setInt(5, bk.getMembers());
-				
-				sm.execute();
-				return ResponseEntity.ok().body("{\"message\": \"" +"Successful"+ "\"}");
-			}
-		}
-		else 
-		{
+			System.out.println("Entered no response block");
 			return ResponseEntity.ok().body("{\"message\": \"" +"No Relavent Data"+ "\"}");
 		}
+		
+		if(isTableAvailable(tbleno))
+		{
+			System.out.println("Entered response block");
+			insertReservation(bk);
+			return ResponseEntity.ok().body("{\"message\": \"" +"Successful"+ "\"}");
+		}
+		else
+		{
+			return ResponseEntity.ok().body("{\"message\": \"" +"table exist !"+ "\"}");
+		}
 	}
+	public boolean isTableAvailable(int tableno) throws SQLException
+	{
+		Connection conn=DriverManager.getConnection("jdbc:mysql://localhost:3306/userinfo","root","HarishShiva@07");
+		String stm="SELECT*FROM reservation WHERE buffetnumber=?";
+		PreparedStatement sm1=conn.prepareStatement(stm);
+		sm1.setInt(1,tableno);
+		ResultSet bq=sm1.executeQuery();
+		return !bq.next();
+	}
+	
+	private void insertReservation(BookingDetails bk) throws SQLException
+	{
+		Connection conn=DriverManager.getConnection("jdbc:mysql://localhost:3306/userinfo","root","HarishShiva@07");
+        	String query = "INSERT INTO reservation(client_name, email, mobno, buffetnumber, personscount) VALUES (?, ?, ?, ?, ?)";
+        try
+	{
+	    PreparedStatement sm = conn.prepareStatement(query)
+            sm.setString(1, bk.getName());
+            sm.setString(2, bk.getEmail());
+            sm.setString(3, bk.getMobno());
+            sm.setInt(4, bk.getTableno());
+            sm.setInt(5, bk.getMembers());
+            sm.execute();
+        } catch (Exception e)
+	{
+            e.printStackTrace(); // To Handle exception appropriately
+        }
+    }
 	
 	@PostMapping("/foodbook")
 	public ResponseEntity<String> foodSave(@RequestBody pojoFood pj) throws SQLException
